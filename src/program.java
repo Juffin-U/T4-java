@@ -1,4 +1,6 @@
- public class program {
+import java.util.Scanner;
+
+public class program {
      static final int pagesCapacity = 10;
      static final int booksCapacity = 10;
      static final int journalsCapacity = 10;
@@ -172,7 +174,9 @@
         }
 
     }
-    static public void execution(library testlibrary, book[] testbook, journal[] testjournal, newspaper[] testnewspaper, list[] test) {
+    static public void execution (library testlibrary, book[] testbook, journal[] testjournal, newspaper[] testnewspaper, list[] test)throws Exception {
+        if (testlibrary == null)
+            throw new Exception("Библиотека не инициализирована");
         String str;
         String str2;
         for (int i = 0; i < pagesCapacity; i++) {
@@ -201,8 +205,8 @@
         testlibrary.fillLibrary(testbook, testjournal, testnewspaper);
     }
 
-    static public  library fillAll() {
-        library testlibrary = new library();
+    static public  void fillAll(library testlibrary) {
+
         list[] test = new list[pagesCapacity];
         for (int i = 0; i < pagesCapacity; i++)
             test[i] = new list();
@@ -215,23 +219,76 @@
         newspaper[] testnewspaper= new newspaper[newspapersCapacity];
         for (int i = 0; i < newspapersCapacity; i++)
             testnewspaper[i] = new newspaper();
+        try {
+            execution(testlibrary, testbook, testjournal, testnewspaper, test);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            testlibrary = new library();
+            try {
+                execution(testlibrary, testbook, testjournal, testnewspaper, test);
+            } catch (Exception ignored) {
+            }
+        }
 
-        execution(testlibrary, testbook, testjournal, testnewspaper, test);
-        return testlibrary;
     }
 
     public static void main(String[] args) {
-        library newlib = fillAll();
+        library newlib = new library();
+        fillAll(newlib);
         newlib.showAll();
-        newlib.openBook("Иллиада3", "Ричард 0", 5);
-        newlib.openNewspaper("times", 1982);
-        newlib.openJournal("омсомолка1924", 3);
+
+        String Name;
+        String Author;
+        int Year;
+        Scanner in = new Scanner(System.in);
+
+        try {
+            System.out.print("Input name: ");
+            Name = in.nextLine();
+            System.out.print("Input author: ");
+            Author = in.nextLine();
+            newlib.openBook(Name, Author, 5);
+        }
+        catch (Exception e){
+            System.out.print("Wrong Input! ");
+            return;
+        }
+
+        try {
+            System.out.print("Input name: ");
+            Name = in.nextLine();
+            System.out.print("Input year: ");
+            Year = in.nextInt();
+            newlib.openNewspaper(Name, Year);
+        }
+        catch (Exception e){
+            System.out.print("Wrong Input! ");
+            return;
+        }
+
+        try {
+            System.out.print("Input name: ");
+            Name = in.nextLine();
+            newlib.openJournal(Name, 3);
+        }
+        catch (Exception e){
+            System.out.print("Wrong Input! ");
+            return;
+        }
+
+
         newspaper[] test = new newspaper[10];
         for (int i = 0; i < 10; i++) {
             test[i] = new newspaper("text" + i);
         }
         for (int i = 0 ; i < 10 ; i++)
             System.out.println(test[i].text + '\n');
+
+        library testlib = null;
+        fillAll(testlib);
+
+
     }
 
 
