@@ -9,10 +9,9 @@
     static private class list{
         String text;
 
-        public void setText(String newText){
+        public list(String newText){
             text = newText;
         }
-
         public String getText(){
             return text;
         }
@@ -23,11 +22,12 @@
         String name;
         list[] pages = new list[pagesCapacity];
 
-        public void fillJournal (String name, list[] pages){
+        public journal (String name, list[] pages){
             this.name = name;
             for (int i =0 ; i < pagesCapacity; i++)
                 this.pages[i] = pages[i];
         }
+
         public String getName(){
             return name;
         }
@@ -41,7 +41,7 @@
         String author;
         list pages[] = new list[pagesCapacity];
 
-        public void fillBook (String author, String name, list[] pages){
+        public book (String author, String name, list[] pages){
             this.author = author;
             this.name = name;
             for (int i = 0; i < pagesCapacity;i++)
@@ -67,7 +67,7 @@
         String text;
         int year;
 
-        public void fillNewspaper(int year, String name, String text){
+        public newspaper(int year, String name, String text){
             this.name = name;
             this.text = text;
             this.year = year;
@@ -91,7 +91,7 @@
         book[] books = new book[booksCapacity];
         journal[] journals = new journal[journalsCapacity];
 
-        public void fillLibrary(book[] books, journal[] journals, newspaper[] newspapers) {
+        public  library(book[] books, journal[] journals, newspaper[] newspapers) {
             for (int i = 0; i < booksCapacity; i++)
                 this.books[i] = books[i];
             for (int i = 0; i < journalsCapacity; i++)
@@ -165,36 +165,43 @@
         }
 
     }
-    static public void execution(library testlibrary, book[] testbook, journal[] testjournal, newspaper[] testnewspaper, list[] test) {
-        String str;
-        String str2;
+     static public library execution() {
+
+         book[] testbook = new book[booksCapacity];
+         journal[] testjournal = new journal[journalsCapacity];
+         newspaper[] testnewspaper = new newspaper[newspapersCapacity];
+         list[] test = new list[pagesCapacity];
+         String str;
+         String str2;
+
         for (int i = 0; i < pagesCapacity; i++) {
             str = "ТУТ КНИГИ ";
-            test[i].setText(str += i);
+            test[i]= new list(str += i);
         }
         for (int i = 0; i < booksCapacity; i++) {
             str = "Ричард ";
             str2 = "Иллиада";
-            testbook[i].fillBook(str += i, str2 += (i + 3), test);
+            testbook[i] = new book(str += i, str2 += (i + 3), test);
         }
 
         for (int i = 0; i < pagesCapacity; i++) {
             str = "ТУТ ЖУРНАЛЫ ";
-            test[i].setText(str += i);
+            test[i] = new list(str += i);
 
         }
 
         for (int i = 0; i < journalsCapacity; i++) {
             str = "Комсомолка";
-            testjournal[i].fillJournal(str += (i + 1934), test);
+            testjournal[i] = new journal(str += (i + 1934), test);
 
         }
         for (int i = 0; i < newspapersCapacity; i++)
-            testnewspaper[i].fillNewspaper(1980 + i, "times", "ТУТ ГАЗЕТЫ ");
-        testlibrary.fillLibrary(testbook, testjournal, testnewspaper);
+            testnewspaper[i] = new newspaper(1980 + i, "times", "ТУТ ГАЗЕТЫ ");
+         return (new library(testbook, testjournal, testnewspaper));
+
     }
 
-    static public  library fillAll() {
+    /*static public  library fillAll() {
         library testlibrary = new library();
         list[] test = new list[pagesCapacity];
         for (int i = 0; i < pagesCapacity; i++)
@@ -212,9 +219,10 @@
         execution(testlibrary, testbook, testjournal, testnewspaper, test);
         return testlibrary;
     }
+     */
 
     public static void main(String[] args) {
-        library newlib = fillAll();
+        library newlib = execution();
         newlib.showAll();
         newlib.openBook("Иллиада3", "Ричард 0", 5);
         newlib.openNewspaper("times", 1982);
