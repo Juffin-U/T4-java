@@ -27,6 +27,9 @@
             for (int i =0 ; i < pagesCapacity; i++)
                 this.pages[i] = pages[i];
         }
+        public journal(){
+
+        }
 
         public String getName(){
             return name;
@@ -46,6 +49,9 @@
             this.name = name;
             for (int i = 0; i < pagesCapacity;i++)
                 this.pages[i] = pages[i];
+        }
+        public book(){
+
         }
 
         public String getAuthor(){
@@ -71,6 +77,9 @@
             this.name = name;
             this.text = text;
             this.year = year;
+        }
+        public newspaper(){
+
         }
 
         public String getName(){
@@ -98,6 +107,9 @@
                 this.journals[i] = journals[i];
             for (int i = 0; i < newspapersCapacity; i++)
                 this.newspapers[i] = newspapers[i];
+
+        }
+        public library(){
 
         }
 
