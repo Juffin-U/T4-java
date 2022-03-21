@@ -73,6 +73,13 @@
             this.year = year;
         }
 
+        public newspaper(String text){
+            this.text = text;
+        }
+        public  newspaper(){
+
+        }
+
         public String getName(){
             return name;
         }
@@ -219,6 +226,12 @@
         newlib.openBook("Иллиада3", "Ричард 0", 5);
         newlib.openNewspaper("times", 1982);
         newlib.openJournal("омсомолка1924", 3);
+        newspaper[] test = new newspaper[10];
+        for (int i = 0; i < 10; i++) {
+            test[i] = new newspaper("text" + i);
+        }
+        for (int i = 0 ; i < 10 ; i++)
+            System.out.println(test[i].text + '\n');
     }
 
 
