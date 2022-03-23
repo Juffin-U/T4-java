@@ -233,6 +233,17 @@ public class program {
 
     }
 
+    public static  Object[][] fillArr(library lib){
+        int ArrLength = 3;
+
+        Object[][] arr = new Object[ArrLength][];
+        arr[0] = lib.books.clone();
+        arr[1] = lib.journals.clone();
+        arr[2] = lib.newspapers.clone();
+
+        return arr;
+    }
+
     public static void main(String[] args) {
         library newlib = new library();
         fillAll(newlib);
@@ -249,8 +260,16 @@ public class program {
             System.out.print("Input author: ");
             Author = in.nextLine();
             newlib.openBook(Name, Author, 5);
+        } catch (Exception e) {
+            System.out.print("Wrong Input! ");
+            return;
         }
-        catch (Exception e){
+
+        try {
+            System.out.print("Input name: ");
+            Name = in.nextLine();
+            newlib.openJournal(Name, 3);
+        } catch (Exception e) {
             System.out.print("Wrong Input! ");
             return;
         }
@@ -261,21 +280,26 @@ public class program {
             System.out.print("Input year: ");
             Year = in.nextInt();
             newlib.openNewspaper(Name, Year);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.print("Wrong Input! ");
             return;
         }
 
-        try {
-            System.out.print("Input name: ");
-            Name = in.nextLine();
-            newlib.openJournal(Name, 3);
+        var doublearr = fillArr(newlib);
+        for (int i = 0; i < doublearr.length; i++) {
+            for (int k = 0; k < doublearr[i].length; k++) {
+                if (doublearr[i][k] instanceof book)
+                    System.out.print(((book) doublearr[i][k]).name);
+                if (doublearr[i][k] instanceof journal)
+                    System.out.print(((journal) doublearr[i][k]).name);
+                if (doublearr[i][k] instanceof newspaper)
+                    System.out.print(((newspaper) doublearr[i][k]).name);
+            }
+
+            //Console.WriteLine(doublearr[i][k].ToString());
+            System.out.print("\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
         }
-        catch (Exception e){
-            System.out.print("Wrong Input! ");
-            return;
-        }
+
 
 
         newspaper[] test = new newspaper[10];
@@ -286,7 +310,8 @@ public class program {
             System.out.println(test[i].text + '\n');
 
         library testlib = null;
-        fillAll(testlib);
+
+
 
 
     }
